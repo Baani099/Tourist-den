@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourist Den - Discover Pakistan's Peak Beauty</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#0052CC', dark: '#003B95', light: '#1A6EFF' },
+                        azure: { DEFAULT: '#0099FF', hover: '#0080FF', light: '#33ADFF' },
+                        skybg: { DEFAULT: '#0F172A', card: '#1E293B', border: '#334155' }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#0F172A] text-white font-sans antialiased overflow-x-hidden selection:bg-azure selection:text-white">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0F172A]/90 backdrop-blur-md border-b border-skybg-border" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#home" onclick="navigateTo('home')" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-primary to-azure flex items-center justify-center text-white text-xl font-black shadow-lg shadow-azure/30 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-mountain-sun"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-black tracking-tight text-white block leading-none font-serif">Tourist<span class="text-azure">Den</span></span>
+                        <span class="text-[10px] tracking-widest text-azure-light uppercase font-semibold">Explore Pakistan</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 bg-skybg-card p-1.5 rounded-full border border-skybg-border shadow-inner">
+                    <button onclick="navigateTo('home')" id="nav-home" class="nav-link px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-white bg-gradient-to-r from-primary to-azure shadow-md">Home</button>
+                    <button onclick="navigateTo('destinations')" id="nav-destinations" class="nav-link px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-gray-300 hover:text-white hover:bg-primary/30">Destinations</button>
+                    <button onclick="navigateTo('packages')" id="nav-packages" class="nav-link px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-gray-300 hover:text-white hover:bg-primary/30">Tour Packages</button>
+                    <button onclick="navigateTo('activities')" id="nav-activities" class="nav-link px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-gray-300 hover:text-white hover:bg-primary/30">Activities</button>
+                    <button onclick="navigateTo('about')" id="nav-about" class="nav-link px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-gray-300 hover:text-white hover:bg-primary/30">About Us</button>
+                    <button onclick="navigateTo('contact')" id="nav-contact" class="nav-link px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-gray-300 hover:text-white hover:bg-primary/30">Contact</button>
+                </nav>
+
+                <!-- Header CTA Button -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <button onclick="openBookingModal('General Inquiry')" class="bg-gradient-to-r from-primary to-azure hover:from-primary-dark hover:to-azure-hover text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-azure/25 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-xs"></i> Book Now
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none p-2 rounded-lg bg-skybg-card border border-skybg-border">
+                    <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-skybg-card/95 border-b border-skybg-border backdrop-blur-xl px-4 pt-3 pb-6 space-y-2">
+            <button onclick="navigateTo('home')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-gray-200 hover:bg-primary/40 hover:text-white">Home</button>
+            <button onclick="navigateTo('destinations')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-gray-200 hover:bg-primary/40 hover:text-white">Destinations</button>
+            <button onclick="navigateTo('packages')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-gray-200 hover:bg-primary/40 hover:text-white">Tour Packages</button>
+            <button onclick="navigateTo('activities')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-gray-200 hover:bg-primary/40 hover:text-white">Activities</button>
+            <button onclick="navigateTo('about')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-gray-200 hover:bg-primary/40 hover:text-white">About Us</button>
+            <button onclick="navigateTo('contact')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-gray-200 hover:bg-primary/40 hover:text-white">Contact</button>
+            <div class="pt-2">
+                <button onclick="openBookingModal('General Inquiry')" class="w-full bg-gradient-to-r from-primary to-azure text-white py-3 rounded-xl font-bold shadow-lg">Book Now</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Views Container -->
+    <main class="pt-20">
+
+        <!-- ==================== HOME PAGE VIEW ==================== -->
+        <div id="page-home" class="page-view animate-fade-in">
+            <!-- Hero Section -->
+            <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20">
+                <!-- Hero BG Image with reliable fallback overlay -->
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2000&q=80" 
+                         alt="Pakistan Mountains" 
+                         onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2000&q=80'"
+                         class="w-full h-full object-cover object-center transform scale-105 filter brightness-75">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/70 to-primary-dark/40"></div>
+                </div>
+
+                <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/40 border border-azure/40 text-azure-light font-semibold text-xs uppercase tracking-widest mb-6 backdrop-blur-md">
+                        <i class="fa-solid fa-compass text-azure"></i> Premier Pakistan Tour Specialists
+                    </span>
+                    
+                    <!-- HERO HEADING IN PURE WHITE -->
+                    <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white font-serif leading-tight mb-6 drop-shadow-xl">
+                        Discover Pakistan's <br class="hidden sm:inline">
+                        <span class="text-white">
+                            Peak Beauty
+                        </span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto mb-10 leading-relaxed font-light drop-shadow">
+                        Unforgettable expeditions to Hunza Valley, Skardu, Fairy Meadows, and ancient Silk Road heritage with Pakistan's premier local travel guides.
+                    </p>
+
+                    <!-- Search / Filter Bar -->
+                    <div class="bg-skybg-card/90 backdrop-blur-xl p-3 sm:p-4 rounded-2xl sm:rounded-full border border-skybg-border shadow-2xl max-w-4xl mx-auto">
+                        <form onsubmit="handleQuickSearch(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3 items-center">
+                            <div class="px-4 py-2 bg-[#0F172A]/70 rounded-xl sm:rounded-full border border-skybg-border flex items-center gap-3">
+                                <i class="fa-solid fa-location-dot text-azure"></i>
+                                <select id="search-dest" class="bg-transparent text-sm font-medium text-white focus:outline-none w-full">
+                                    <option value="" class="bg-skybg-card text-gray-300">Where to go?</option>
+                                    <option value="hunza" class="bg-skybg-card text-white">Hunza Valley</option>
+                                    <option value="skardu" class="bg-skybg-card text-white">Skardu & Deosai</option>
+                                    <option value="fairymeadows" class="bg-skybg-card text-white">Fairy Meadows</option>
+                                    <option value="swat" class="bg-skybg-card text-white">Swat Valley</option>
+                                </select>
+                            </div>
+
+                            <div class="px-4 py-2 bg-[#0F172A]/70 rounded-xl sm:rounded-full border border-skybg-border flex items-center gap-3">
+                                <i class="fa-solid fa-calendar-days text-azure"></i>
+                                <select id="search-duration" class="bg-transparent text-sm font-medium text-white focus:outline-none w-full">
+                                    <option value="" class="bg-skybg-card text-gray-300">Duration</option>
+                                    <option value="3-5" class="bg-skybg-card text-white">3-5 Days</option>
+                                    <option value="6-8" class="bg-skybg-card text-white">6-8 Days</option>
+                                    <option value="9+" class="bg-skybg-card text-white">9+ Days Expedition</option>
+                                </select>
+                            </div>
+
+                            <div class="px-4 py-2 bg-[#0F172A]/70 rounded-xl sm:rounded-full border border-skybg-border flex items-center gap-3">
+                                <i class="fa-solid fa-layer-group text-azure"></i>
+                                <select id="search-type" class="bg-transparent text-sm font-medium text-white focus:outline-none w-full">
+                                    <option value="" class="bg-skybg-card text-gray-300">Tour Style</option>
+                                    <option value="adventure" class="bg-skybg-card text-white">Adventure Trek</option>
+                                    <option value="family" class="bg-skybg-card text-white">Family Holiday</option>
+                                    <option value="cultural" class="bg-skybg-card text-white">Cultural Heritage</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="bg-gradient-to-r from-primary to-azure hover:from-primary-dark hover:to-azure-hover text-white py-3.5 px-6 rounded-xl sm:rounded-full font-bold text-sm shadow-lg shadow-azure/30 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-magnifying-glass"></i> Search Trips
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Highlights Stats -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
+                        <div class="bg-skybg-card/60 backdrop-blur-md p-4 rounded-2xl border border-skybg-border text-center">
+                            <span class="block text-2xl font-black text-white font-serif">12,500+</span>
+                            <span class="text-xs text-azure-light">Happy Travelers</span>
+                        </div>
+                        <div class="bg-skybg-card/60 backdrop-blur-md p-4 rounded-2xl border border-skybg-border text-center">
+                            <span class="block text-2xl font-black text-white font-serif">45+</span>
+                            <span class="text-xs text-azure-light">Northern Routes</span>
+                        </div>
+                        <div class="bg-skybg-card/60 backdrop-blur-md p-4 rounded-2xl border border-skybg-border text-center">
+                            <span class="block text-2xl font-black text-white font-serif">4.9/5</span>
+                            <span class="text-xs text-azure-light">Customer Rating</span>
+                        </div>
+                        <div class="bg-skybg-card/60 backdrop-blur-md p-4 rounded-2xl border border-skybg-border text-center">
+                            <span class="block text-2xl font-black text-white font-serif">100%</span>
+                            <span class="text-xs text-azure-light">Local Verified Guides</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Destinations Preview Section -->
+            <section class="py-20 bg-skybg-card/50 border-y border-skybg-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                        <div>
+                            <span class="text-azure font-bold text-xs uppercase tracking-widest">Iconic Locations</span>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-serif mt-1">Pakistan's Top Destinations</h2>
+                        </div>
+                        <button onclick="navigateTo('destinations')" class="mt-4 md:mt-0 text-azure-light hover:text-white font-bold text-sm flex items-center gap-2 group">
+                            Explore All Destinations <i class="fa-solid fa-arrow-right text-azure group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="featured-destinations-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Packages Preview -->
+            <section class="py-20 bg-[#0F172A]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-14">
+                        <span class="text-azure font-bold text-xs uppercase tracking-widest">Handcrafted Journeys</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-serif mt-1">Trending Tour Packages</h2>
+                        <p class="text-gray-300 text-sm mt-3">All-inclusive guided expeditions crafted by Northern Pakistan local experts.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="featured-packages-grid">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <div class="text-center mt-12">
+                        <button onclick="navigateTo('packages')" class="bg-skybg-card border border-skybg-border text-white px-8 py-3.5 rounded-full font-bold text-sm hover:border-azure hover:text-azure transition-all">
+                            View All Tour Packages
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Why Choose Us -->
+            <section class="py-20 bg-gradient-to-b from-skybg-card/80 to-[#0F172A] border-t border-skybg-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <span class="text-azure font-bold text-xs uppercase tracking-widest">Why Tourist Den</span>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-serif mt-2 mb-6">Your Trusted Companion for Exploring Pakistan</h2>
+                            
+                            <div class="space-y-6">
+                                <div class="flex gap-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-primary/20 border border-primary/40 flex items-center justify-center text-azure text-xl shrink-0">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-white mb-1">Safety & Comfort First</h3>
+                                        <p class="text-gray-300 text-sm">4x4 Prados, luxury coaster transport, high-altitude safety protocols, and vetted mountain hotels.</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-primary/20 border border-primary/40 flex items-center justify-center text-azure text-xl shrink-0">
+                                        <i class="fa-solid fa-people-roof"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-white mb-1">Authentic Local Guides</h3>
+                                        <p class="text-gray-300 text-sm">Native Hunzakut, Balti, and Pashtun guides who know hidden trails, local folklore, and warm hospitalities.</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-primary/20 border border-primary/40 flex items-center justify-center text-azure text-xl shrink-0">
+                                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-white mb-1">Transparent Pricing</h3>
+                                        <p class="text-gray-300 text-sm">No hidden fees. Includes meals, stays, permits, transfers, and 24/7 dedicated local support.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="relative rounded-3xl overflow-hidden border border-skybg-border shadow-2xl">
+                                <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1000&q=80" 
+                                     alt="Hunza Valley Sunset" 
+                                     onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80'"
+                                     class="w-full h-[450px] object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-skybg-card/90 backdrop-blur-md border border-skybg-border">
+                                    <p class="italic text-gray-200 text-sm">"Traveling Hunza and Skardu with Tourist Den was the smoothest experience. Their local team treated us like family!"</p>
+                                    <div class="mt-3 flex items-center justify-between">
+                                        <div>
+                                            <span class="block text-white font-bold text-sm">Amina & Hamza</span>
+                                            <span class="text-xs text-azure-light">Lahore, Pakistan</span>
+                                        </div>
+                                        <div class="text-azure text-xs">
+                                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== DESTINATIONS PAGE VIEW ==================== -->
+        <div id="page-destinations" class="page-view hidden animate-fade-in">
+            <section class="py-16 bg-skybg-card/50 border-b border-skybg-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <span class="text-azure font-bold text-xs uppercase tracking-widest">Explore Places</span>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-white font-serif mt-2 mb-4">Pakistan's Top Travel Destinations</h1>
+                    <p class="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">From the legendary peaks of Gilgit-Baltistan to the emerald lakes of Swat and cultural streets of Lahore.</p>
+                </div>
+            </section>
+
+            <section class="py-16 bg-[#0F172A]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="all-destinations-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== TOUR PACKAGES PAGE VIEW ==================== -->
+        <div id="page-packages" class="page-view hidden animate-fade-in">
+            <section class="py-16 bg-skybg-card/50 border-b border-skybg-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <span class="text-azure font-bold text-xs uppercase tracking-widest">Choose Your Adventure</span>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-white font-serif mt-2 mb-4">Northern Pakistan Tour Packages</h1>
+                    <p class="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">Filter by trip style, duration, or search your favorite valley.</p>
+
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap items-center justify-center gap-2 mt-8">
+                        <button onclick="filterPackages('all')" class="pkg-tab active px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-gradient-to-r from-primary to-azure text-white shadow-lg">All Packages</button>
+                        <button onclick="filterPackages('adventure')" class="pkg-tab px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-skybg-card border border-skybg-border text-gray-300 hover:text-white">Adventure Treks</button>
+                        <button onclick="filterPackages('family')" class="pkg-tab px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-skybg-card border border-skybg-border text-gray-300 hover:text-white">Family Vacations</button>
+                        <button onclick="filterPackages('cultural')" class="pkg-tab px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-skybg-card border border-skybg-border text-gray-300 hover:text-white">Cultural Heritage</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 bg-[#0F172A]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="all-packages-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== ACTIVITIES PAGE VIEW ==================== -->
+        <div id="page-activities" class="page-view hidden animate-fade-in">
+            <section class="py-16 bg-skybg-card/50 border-b border-skybg-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <span class="text-azure font-bold text-xs uppercase tracking-widest">Things To Do</span>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-white font-serif mt-2 mb-4">Unforgettable Experiences</h1>
+                    <p class="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">High altitude treks, river rafting, jeep safaris, and night stargazing under mountain skies.</p>
+                </div>
+            </section>
+
+            <section class="py-16 bg-[#0F172A]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="activities-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== ABOUT US PAGE VIEW ==================== -->
+        <div id="page-about" class="page-view hidden animate-fade-in">
+            <section class="py-20 bg-[#0F172A]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl mx-auto text-center mb-16">
+                        <span class="text-azure font-bold text-xs uppercase tracking-widest">Our Story</span>
+                        <h1 class="text-4xl sm:text-5xl font-extrabold text-white font-serif mt-2 mb-6">Promoting the Real Wonders of Pakistan</h1>
+                        <p class="text-gray-300 leading-relaxed text-base">
+                            Founded by passionate high-altitude trekkers and local mountain guides, <strong class="text-white">Tourist Den</strong> is dedicated to showcasing Pakistan’s breathtaking landscapes, warm cultures, and majestic northern peaks to travelers around the globe.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+                        <div class="bg-skybg-card/70 p-8 rounded-3xl border border-skybg-border text-center">
+                            <div class="w-16 h-16 rounded-2xl bg-primary/20 text-azure text-2xl flex items-center justify-center mx-auto mb-5 border border-primary/30">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Our Mission</h3>
+                            <p class="text-gray-300 text-sm">To provide eco-friendly, safe, and authentic travel experiences that empower local mountain communities in Gilgit-Baltistan and KPK.</p>
+                        </div>
+
+                        <div class="bg-skybg-card/70 p-8 rounded-3xl border border-skybg-border text-center">
+                            <div class="w-16 h-16 rounded-2xl bg-primary/20 text-azure text-2xl flex items-center justify-center mx-auto mb-5 border border-primary/30">
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Our Vision</h3>
+                            <p class="text-gray-300 text-sm">To position Pakistan as a world-class premier destination for eco-tourism, alpine trekking, and cultural heritage exploration.</p>
+                        </div>
+
+                        <div class="bg-skybg-card/70 p-8 rounded-3xl border border-skybg-border text-center">
+                            <div class="w-16 h-16 rounded-2xl bg-primary/20 text-azure text-2xl flex items-center justify-center mx-auto mb-5 border border-primary/30">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Our Values</h3>
+                            <p class="text-gray-300 text-sm">Uncompromising safety standards, deep respect for indigenous cultures, and sustainable eco-conscious travel practices.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== CONTACT PAGE VIEW ==================== -->
+        <div id="page-contact" class="page-view hidden animate-fade-in">
+            <section class="py-16 bg-skybg-card/50 border-b border-skybg-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <span class="text-azure font-bold text-xs uppercase tracking-widest">Get In Touch</span>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-white font-serif mt-2 mb-4">Contact Tourist Den</h1>
+                    <p class="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">Have questions or need a customized tour itinerary? Our local travel experts are here 24/7.</p>
+                </div>
+            </section>
+
+            <section class="py-16 bg-[#0F172A]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                        <!-- Contact Info -->
+                        <div class="lg:col-span-5 space-y-8">
+                            <div class="bg-skybg-card/70 p-8 rounded-3xl border border-skybg-border">
+                                <h3 class="text-2xl font-bold text-white font-serif mb-6">Headquarter Details</h3>
+
+                                <div class="space-y-6">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-primary/20 text-azure flex items-center justify-center shrink-0 border border-primary/30">
+                                            <i class="fa-solid fa-location-dot text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <span class="block text-xs text-azure-light uppercase font-bold">Main Office</span>
+                                            <p class="text-white text-sm font-medium mt-0.5">Blue Area, Islamabad, Pakistan</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-primary/20 text-azure flex items-center justify-center shrink-0 border border-primary/30">
+                                            <i class="fa-solid fa-phone text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <span class="block text-xs text-azure-light uppercase font-bold">Call / WhatsApp</span>
+                                            <p class="text-white text-sm font-medium mt-0.5">+92 300 1234567 / +92 51 9876543</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-primary/20 text-azure flex items-center justify-center shrink-0 border border-primary/30">
+                                            <i class="fa-solid fa-envelope text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <span class="block text-xs text-azure-light uppercase font-bold">Email Inquiry</span>
+                                            <p class="text-white text-sm font-medium mt-0.5">info@touristden.pk</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8 pt-8 border-t border-skybg-border">
+                                    <span class="block text-xs text-gray-400 font-bold uppercase mb-3">Follow Us</span>
+                                    <div class="flex items-center gap-3">
+                                        <a href="#" class="w-10 h-10 rounded-full bg-skybg-card hover:bg-azure text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                                        <a href="#" class="w-10 h-10 rounded-full bg-skybg-card hover:bg-azure text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                                        <a href="#" class="w-10 h-10 rounded-full bg-skybg-card hover:bg-azure text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <div class="lg:col-span-7">
+                            <form onsubmit="handleContactSubmit(event)" class="bg-skybg-card/70 p-8 sm:p-10 rounded-3xl border border-skybg-border space-y-6">
+                                <h3 class="text-2xl font-bold text-white font-serif mb-2">Send Us a Message</h3>
+                                <p class="text-gray-300 text-sm mb-6">Fill out the form below and our Pakistan trip planning specialists will respond within 2 hours.</p>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-azure-light mb-2">Your Name</label>
+                                        <input type="text" required placeholder="e.g. Ali Ahmed" class="w-full bg-[#0F172A]/80 border border-skybg-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-azure">
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-azure-light mb-2">Email Address</label>
+                                        <input type="email" required placeholder="ali@example.com" class="w-full bg-[#0F172A]/80 border border-skybg-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-azure">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-azure-light mb-2">Phone / WhatsApp</label>
+                                        <input type="tel" required placeholder="+92 300 0000000" class="w-full bg-[#0F172A]/80 border border-skybg-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-azure">
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-azure-light mb-2">Interested Region</label>
+                                        <select class="w-full bg-[#0F172A]/80 border border-skybg-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-azure">
+                                            <option class="bg-skybg-card">Hunza & Nagar</option>
+                                            <option class="bg-skybg-card">Skardu & Deosai</option>
+                                            <option class="bg-skybg-card">Fairy Meadows & Nanga Parbat</option>
+                                            <option class="bg-skybg-card">Swat Valley & Malam Jabba</option>
+                                            <option class="bg-skybg-card">Customized North Itinerary</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-azure-light mb-2">Your Message / Tour Requirements</label>
+                                    <textarea rows="4" required placeholder="Tell us about travel dates, number of guests, or special requirements..." class="w-full bg-[#0F172A]/80 border border-skybg-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-azure"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full bg-gradient-to-r from-primary to-azure hover:from-primary-dark hover:to-azure-hover text-white py-4 rounded-xl font-bold shadow-lg shadow-azure/30 transition-all text-sm uppercase tracking-wider">
+                                    Send Inquiry Now
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Interactive Booking Modal -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-[#0F172A]/80 backdrop-blur-md">
+        <div class="bg-skybg-card border border-skybg-border w-full max-w-lg rounded-3xl p-6 sm:p-8 relative shadow-2xl animate-fade-in">
+            <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <span class="text-azure font-bold text-xs uppercase tracking-widest">Reserve Your Spot</span>
+            <h3 class="text-2xl font-bold text-white font-serif mt-1 mb-2" id="modal-package-title">Book Tour Package</h3>
+            <p class="text-xs text-azure-light mb-6">Enter your travel details to calculate total estimate and lock your booking.</p>
+
+            <form onsubmit="handleBookingConfirm(event)" class="space-y-4">
+                <input type="hidden" id="modal-pkg-price" value="0">
+                
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Full Name</label>
+                    <input type="text" required placeholder="Full Name" class="w-full bg-[#0F172A] border border-skybg-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-azure">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Travelers</label>
+                        <input type="number" id="booking-guests" min="1" max="20" value="2" onchange="calcTotal()" class="w-full bg-[#0F172A] border border-skybg-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-azure">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Start Date</label>
+                        <input type="date" required class="w-full bg-[#0F172A] border border-skybg-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-azure">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Phone / WhatsApp</label>
+                    <input type="tel" required placeholder="+92 300 0000000" class="w-full bg-[#0F172A] border border-skybg-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-azure">
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="bg-[#0F172A]/50 p-4 rounded-xl border border-skybg-border flex justify-between items-center my-4">
+                    <span class="text-xs text-gray-300">Estimated Total:</span>
+                    <span class="text-xl font-bold text-azure-light" id="modal-total-price">PKR 0</span>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-primary to-azure hover:from-primary-dark hover:to-azure-hover text-white py-3.5 rounded-xl font-bold shadow-lg shadow-azure/30 transition-all text-sm">
+                    Confirm Reservation Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-skybg-card border-t border-skybg-border pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-1">
+                    <a href="#home" onclick="navigateTo('home')" class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-azure flex items-center justify-center text-white text-lg font-black shadow-lg">
+                            <i class="fa-solid fa-mountain-sun"></i>
+                        </div>
+                        <span class="text-2xl font-black text-white font-serif">Tourist<span class="text-azure">Den</span></span>
+                    </a>
+                    <p class="text-gray-300 text-xs leading-relaxed mb-4">
+                        Premier tour operator operating across Northern Pakistan. Specializing in luxury trips, alpine trekking, and cultural heritage expeditions.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-skybg-border pb-2">Quick Navigation</h4>
+                    <ul class="space-y-2 text-xs text-gray-300">
+                        <li><button onclick="navigateTo('home')" class="hover:text-azure transition-colors">Home Page</button></li>
+                        <li><button onclick="navigateTo('destinations')" class="hover:text-azure transition-colors">Top Destinations</button></li>
+                        <li><button onclick="navigateTo('packages')" class="hover:text-azure transition-colors">Tour Packages</button></li>
+                        <li><button onclick="navigateTo('activities')" class="hover:text-azure transition-colors">Activities & Treks</button></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-skybg-border pb-2">Featured Valleys</h4>
+                    <ul class="space-y-2 text-xs text-gray-300">
+                        <li><a href="#" onclick="navigateTo('destinations')" class="hover:text-azure transition-colors">Hunza Valley Tours</a></li>
+                        <li><a href="#" onclick="navigateTo('destinations')" class="hover:text-azure transition-colors">Skardu & Deosai Plains</a></li>
+                        <li><a href="#" onclick="navigateTo('destinations')" class="hover:text-azure transition-colors">Fairy Meadows & Nanga Parbat</a></li>
+                        <li><a href="#" onclick="navigateTo('destinations')" class="hover:text-azure transition-colors">Swat Valley & Kalam</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-skybg-border pb-2">Newsletter</h4>
+                    <p class="text-xs text-gray-300 mb-3">Subscribe for northern weather updates and seasonal tour discounts.</p>
+                    <form onsubmit="event.preventDefault(); alert('Subscribed successfully!');" class="space-y-2">
+                        <input type="email" placeholder="Your email..." class="w-full bg-[#0F172A] border border-skybg-border rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-azure">
+                        <button type="submit" class="w-full bg-azure text-white py-2 rounded-xl text-xs font-bold hover:bg-azure-hover transition-colors">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-skybg-border pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+                <p>&copy; 2026 Tourist Den Pakistan. All rights reserved.</p>
+                <p class="text-azure-light">Theme: Deep Cobalt Blue & Vivid Azure Palette</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
